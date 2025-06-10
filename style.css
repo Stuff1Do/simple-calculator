@@ -60,9 +60,6 @@ body{
     border-radius: 14px;
 }
 
-.button:hover{
-    
-}
 .but:active{
     background-color: #4f5050;
 }

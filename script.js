@@ -95,6 +95,8 @@ let b;
 let operation;
 let justCalculated = false;
 let numberInputted  = false;
+let operationInputted = false;
+
 let result;
 
 function calculatePEMDAS(operators, operands){
@@ -123,7 +125,9 @@ function calculatePEMDAS(operators, operands){
     }
     return result;
     
-}
+}   
+
+
 buttonContainer.addEventListener('click', (e)=>{
     if(e.target.tagName != 'BUTTON') return;
     const value = e.target.getAttribute('data-value');
@@ -131,6 +135,7 @@ buttonContainer.addEventListener('click', (e)=>{
     switch(value){
         case '0':
             numberInputted = true;
+            operationInputted =false;
             if(justCalculated){
                 showInput.textContent = '0';
                 result = null;
@@ -141,6 +146,7 @@ buttonContainer.addEventListener('click', (e)=>{
             break;
         case '1':
             numberInputted = true;
+            operationInputted =false;
             if(justCalculated){
                 showInput.textContent = '1';
                 result = null;
@@ -153,6 +159,7 @@ buttonContainer.addEventListener('click', (e)=>{
             break;
         case '2':
             numberInputted = true;
+            operationInputted =false;
             if(justCalculated){
                 showInput.textContent = '2';
                 result = null;
@@ -165,6 +172,7 @@ buttonContainer.addEventListener('click', (e)=>{
             break;
         case '3':
             numberInputted = true;
+            operationInputted =false;
             if(justCalculated){
                 showInput.textContent = '3';
                 result = null;
@@ -176,6 +184,7 @@ buttonContainer.addEventListener('click', (e)=>{
             break;
         case '4':
             numberInputted = true;
+            operationInputted =false;
             if(justCalculated){
                 showInput.textContent = '4';
                 result = null;
@@ -187,6 +196,7 @@ buttonContainer.addEventListener('click', (e)=>{
             break;
         case '5':
             numberInputted = true;
+            operationInputted =false;
             if(justCalculated){
                 showInput.textContent = '5';
                 result = null;
@@ -198,6 +208,7 @@ buttonContainer.addEventListener('click', (e)=>{
             break;
         case '6':
             numberInputted = true;
+            operationInputted =false;
             if(justCalculated){
                 showInput.textContent = '6';
                 result = null;
@@ -209,6 +220,7 @@ buttonContainer.addEventListener('click', (e)=>{
             break;
         case '7':
             numberInputted = true;
+            operationInputted =false;
             if(justCalculated){
                 showInput.textContent = '7';
                 result = null;
@@ -220,6 +232,7 @@ buttonContainer.addEventListener('click', (e)=>{
             break;
         case '8':
             numberInputted = true;
+            operationInputted =false;
             if(justCalculated){
                 showInput.textContent = '8';
                 result = null;
@@ -231,6 +244,7 @@ buttonContainer.addEventListener('click', (e)=>{
             break;
         case '9':
             numberInputted = true;
+            operationInputted =false;
             if(justCalculated){
                 showInput.textContent = '9';
                 result = null;
@@ -266,31 +280,47 @@ buttonContainer.addEventListener('click', (e)=>{
             showInput.textContent = 'WIP';
             break;
         case '/':
+            if(operationInputted){
+                return;
+            }
             if(numberInputted){
                 showInput.textContent += '÷';
                 operation = '÷';
                 secondValueBoolean = true;
+                operationInputted = true;
             }
             break;
         case '*':
+            if(operationInputted){
+                return;
+            }
             if(numberInputted){
                 
                 showInput.textContent += 'x';
                 operation = 'x';
                 secondValueBoolean = true;
+                operationInputted = true;
             }
             break;
         case '-':
+            if(operationInputted){
+                return;
+            }
                 showInput.textContent += '-';
                 operation = '-';
                 secondValueBoolean = true;
+                operationInputted = true;
             
             break;
         case '+':
+            if(operationInputted){
+                return;
+            }
             if(numberInputted){
                 showInput.textContent += '+';
                 operation = '+';
                 secondValueBoolean = true;
+                operationInputted = true;
             }
             break;
         case '=':
@@ -308,7 +338,7 @@ buttonContainer.addEventListener('click', (e)=>{
             showPreview.textContent = '';
             justCalculated = true;
             numberInputted = false;
-        
+            operationInputted=false;
             break;
        
         default: 

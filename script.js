@@ -19,7 +19,7 @@ const clearButton = document.querySelector('.clear');
 const deleteButton = document.querySelector('.delete');
 const dotButton  = document.querySelector('.dot');
 const negateButton = document.querySelector('.negate');
-const equalButton = document.querySelector('equals');
+const equalButton = document.querySelector('.equals');
 const buttonContainer = document.querySelector('.input-container');
 const buttons = document.querySelectorAll('button');
 
@@ -28,8 +28,8 @@ document.addEventListener('keydown', handleKeys);
 
 function handleKeys(e){
     const keyMap = {
-        '/': '/',
-        '*': '*',
+        '÷': '÷',
+        'x': 'x',
         '-': '-',
         '+': '+',
         'Enter': '=', 
@@ -95,13 +95,39 @@ let b;
 let operation;
 let justCalculated = false;
 let numberInputted  = false;
-let multipleOperations = false;
 let result;
-let ctr = 0;
+
+function calculatePEMDAS(operators, operands){
+    const precedence = {
+        '+': 1,
+        '-': 1,
+        'x': 2,
+        '÷': 2,
+    };
+    while(operators.length > 0){
+        let highestIndex = -1;
+        let highestPrecedence = -1;
+        for(let i = 0; i < operators.length;i++){
+            let currentPrecedence = precedence[operators[i]];
+           if(currentPrecedence > highestPrecedence){
+                highestPrecedence = currentPrecedence;
+                highestIndex = i;
+           }
+        }
+        let op = operators[highestIndex];
+        let left = parseFloat(operands[highestIndex]);
+        let right = parseFloat(operands[highestIndex+1]);           
+        result = operate(op, left, right);
+        operands.splice(highestIndex, 2, result);
+        operators.splice(highestIndex, 1);
+    }
+    return result;
+    
+}
 buttonContainer.addEventListener('click', (e)=>{
     if(e.target.tagName != 'BUTTON') return;
     const value = e.target.getAttribute('data-value');
-
+    
     switch(value){
         case '0':
             numberInputted = true;
@@ -111,15 +137,6 @@ buttonContainer.addEventListener('click', (e)=>{
                 justCalculated = false;
             }else {
                 showInput.textContent += '0';
-            }
-            
-            if(secondValueBoolean){
-                let value  = showInput.textContent;
-                let split = value.split(`${operation}`);
-                b = parseFloat(split[ctr]);
-                result = operate(operation, a, b);
-                showPreview.textContent = result;
-                multipleOperations = true;
             }      
             break;
         case '1':
@@ -131,17 +148,6 @@ buttonContainer.addEventListener('click', (e)=>{
             }else {
                 showInput.textContent += '1';
             }
-            
-            if(secondValueBoolean){
-                let value  = showInput.textContent;
-                let split = value.split(`${operation}`);
-                b = parseFloat(split[ctr]);
-                result = operate(operation, a, b);
-                showPreview.textContent = result;
-                multipleOperations = true;
-            }else{
-                showPreview.textContent = '';
-            }          
             
             
             break;
@@ -155,16 +161,6 @@ buttonContainer.addEventListener('click', (e)=>{
                 showInput.textContent += '2';
             }
             
-            if(secondValueBoolean){
-                let value  = showInput.textContent;
-                let split = value.split(`${operation}`);
-                b = parseFloat(split[ctr]);
-                result = operate(operation, a, b);
-                showPreview.textContent = result;
-                multipleOperations = true;
-            }else{
-                showPreview.textContent = '';
-            }
             
             break;
         case '3':
@@ -176,16 +172,7 @@ buttonContainer.addEventListener('click', (e)=>{
             }else {
                 showInput.textContent += '3';
             }
-            if(secondValueBoolean){
-                let value  = showInput.textContent;
-                let split = value.split(`${operation}`);
-                b = parseFloat(split[ctr]);
-                result = operate(operation, a, b);
-                showPreview.textContent = result;
-                multipleOperations = true;
-            }else{
-                showPreview.textContent = '';
-            }
+            
             break;
         case '4':
             numberInputted = true;
@@ -196,16 +183,7 @@ buttonContainer.addEventListener('click', (e)=>{
             }else {
                 showInput.textContent += '4';
             }
-            if(secondValueBoolean){
-                let value  = showInput.textContent;
-                let split = value.split(`${operation}`);
-                b = parseFloat(split[ctr]);
-                result = operate(operation, a, b);
-                showPreview.textContent = result;
-                multipleOperations = true;
-            }else{
-                showPreview.textContent = '';
-            }
+            
             break;
         case '5':
             numberInputted = true;
@@ -216,16 +194,7 @@ buttonContainer.addEventListener('click', (e)=>{
             }else {
                 showInput.textContent += '5';
             }
-            if(secondValueBoolean){
-                let value  = showInput.textContent;
-                let split = value.split(`${operation}`);
-                b = parseFloat(split[ctr]);
-                result = operate(operation, a, b);
-                showPreview.textContent = result;
-                multipleOperations = true;
-            }else{
-                showPreview.textContent = '';
-            }
+           
             break;
         case '6':
             numberInputted = true;
@@ -236,16 +205,7 @@ buttonContainer.addEventListener('click', (e)=>{
             }else {
                 showInput.textContent += '6';
             }
-            if(secondValueBoolean){
-                let value  = showInput.textContent;
-                let split = value.split(`${operation}`);
-                b = parseFloat(split[ctr]);
-                result = operate(operation, a, b);
-                showPreview.textContent = result;
-                multipleOperations = true;
-            }else{
-                showPreview.textContent = '';
-            }
+            
             break;
         case '7':
             numberInputted = true;
@@ -256,16 +216,7 @@ buttonContainer.addEventListener('click', (e)=>{
             }else {
                 showInput.textContent += '7';
             }
-            if(secondValueBoolean){
-                let value  = showInput.textContent;
-                let split = value.split(`${operation}`);
-                b = parseFloat(split[ctr]);
-                result = operate(operation, a, b);
-                showPreview.textContent = result;
-                multipleOperations = true;
-            }else{
-                showPreview.textContent = '';
-            }
+            
             break;
         case '8':
             numberInputted = true;
@@ -276,16 +227,7 @@ buttonContainer.addEventListener('click', (e)=>{
             }else {
                 showInput.textContent += '8';
             }
-            if(secondValueBoolean){
-                let value  = showInput.textContent;
-                let split = value.split(`${operation}`);
-                b = parseFloat(split[ctr]);
-                result = operate(operation, a, b);
-                showPreview.textContent = result;
-                multipleOperations = true;
-            }else{
-                showPreview.textContent = '';
-            }
+            
             break;
         case '9':
             numberInputted = true;
@@ -296,16 +238,7 @@ buttonContainer.addEventListener('click', (e)=>{
             }else {
                 showInput.textContent += '9';
             }
-            if(secondValueBoolean){
-                let value  = showInput.textContent;
-                let split = value.split(`${operation}`);
-                b = parseFloat(split[ctr]);
-                result = operate(operation, a, b);
-                showPreview.textContent = result;
-                multipleOperations = true;
-            }else{
-                showPreview.textContent = '';
-            }
+            
             break;
         case '.':
             numberInputted = true;
@@ -326,90 +259,58 @@ buttonContainer.addEventListener('click', (e)=>{
             secondValueBoolean = false;
             justCalculated = false;
             numberInputted = false;
-            multipleOperations = false;
-            ctr = 0;
+            
+            
             break;
-        case 'DEL':
-            let value = showInput.textContent;
-            let sliced = value.slice(0, value.length-1);
-            showInput.textContent = sliced;
+        case 'DEL':   
+            showInput.textContent = 'WIP';
             break;
         case '/':
             if(numberInputted){
-                ctr++;
-                if(multipleOperations){
-                    a = result;
-                    showInput.textContent += '÷';
-                    operation = '/';
-                    secondValueBoolean = true;
-                }else{
-                    a = parseFloat(showInput.textContent);
-                    showInput.textContent += '÷';
-                    operation = '/';
-                    secondValueBoolean = true;
-                }
+                showInput.textContent += '÷';
+                operation = '÷';
+                secondValueBoolean = true;
             }
             break;
         case '*':
             if(numberInputted){
-                ctr++;
-                if(multipleOperations){
-                    a = result;
-                    showInput.textContent += 'x';
-                    operation = '*';
-                    secondValueBoolean = true;
-                }else{
-                    a = parseFloat(showInput.textContent);
-                    showInput.textContent += 'x';
-                    operation = '*';
-                    secondValueBoolean = true;
-                }
+                
+                showInput.textContent += 'x';
+                operation = 'x';
+                secondValueBoolean = true;
             }
             break;
         case '-':
-                ctr++;
-                if(multipleOperations){
-                    a = result;
-                    showInput.textContent += '-';
-                    operation = '-';
-                    secondValueBoolean = true;
-                }else{
-                    a = parseFloat(showInput.textContent);
-                    showInput.textContent += '-';
-                    operation = '-';
-                    secondValueBoolean = true;
-                }
+                showInput.textContent += '-';
+                operation = '-';
+                secondValueBoolean = true;
             
             break;
         case '+':
             if(numberInputted){
-                ctr++;
-                if(multipleOperations){
-                    a = result;
-                    showInput.textContent += '+';
-                    operation = '+';
-                    secondValueBoolean = true;
-                }else{
-                    a = parseFloat(showInput.textContent);
-                    showInput.textContent += '+';
-                    operation = '+';
-                    secondValueBoolean = true;
-                }
+                showInput.textContent += '+';
+                operation = '+';
+                secondValueBoolean = true;
             }
             break;
         case '=':
             
+        
+            let value  = showInput.textContent;
+            let operands = value.split(/[+\-÷x]/g);
+            let operators = value.match(/[+\-÷x]/g) || [];
+            
+            if(operands.length < 2 && operators.length < 1){
+                return;
+            }
+            result = calculatePEMDAS(operators, operands); 
             showInput.textContent = result;
             showPreview.textContent = '';
-            a = null;
-            b = null;
-            operation = null;
             justCalculated = true;
-            secondValueBoolean = false;
             numberInputted = false;
-            multipleOperations = false;
-            ctr = 0;
+        
             break;
+       
         default: 
             showInput.textContent = 'Error';
             showPreview.textContent = ' ';

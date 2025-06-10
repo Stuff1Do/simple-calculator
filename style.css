@@ -1,0 +1,86 @@
+
+
+*{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body{
+    background-color: hsla(210deg, 38%, 15%, 0.85);
+    display: flex;
+    justify-content: center;
+}
+
+.calc-container{
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    width: 325px;
+    margin-top: 20px;
+    gap: 20px;
+    border-radius: 14px;
+}
+
+.show-input{
+    color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 90px;
+    align-items: flex-end;
+    font-size: 25px;
+    
+}
+
+.result-preview{
+    font-size: 18px;
+    opacity: 0.5;
+}
+
+.input-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px;
+    background-color: #191d1b;
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+}
+
+
+.button{
+    color: white;
+    background-color: #191d1b;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 20%;
+    padding: 15px;
+    border: 0;
+    font-size: 19px;
+    border-radius: 14px;
+}
+
+.button:hover{
+    background-color: #4f5050;
+}
+.button:active{
+    background-color: #4f5050;
+}
+
+.clear{
+    color: rgb(233, 70, 70);
+}
+
+.operations{
+    color: lightgreen;
+}
+
+.multiply{
+    font-size: 21px;
+}
+
+.equals{
+    background-color: #81f99d;
+    font-size: 24px;
+    padding:10px;
+}

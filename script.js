@@ -277,7 +277,9 @@ buttonContainer.addEventListener('click', (e)=>{
             
             break;
         case 'DEL':   
-            showInput.textContent = 'WIP';
+            let text = showInput.textContent;
+            let sliced = text.slice(0, text.length-1);
+            showInput.textContent = sliced;
             break;
         case '/':
             if(operationInputted){
@@ -304,6 +306,9 @@ buttonContainer.addEventListener('click', (e)=>{
             break;
         case '-':
             if(operationInputted){
+                return;
+            }
+            if(justCalculated){
                 return;
             }
                 showInput.textContent += '-';

@@ -61,9 +61,9 @@ body{
 }
 
 .button:hover{
-    background-color: #4f5050;
+    
 }
-.button:active{
+.but:active{
     background-color: #4f5050;
 }
 

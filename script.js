@@ -300,9 +300,6 @@ buttonContainer.addEventListener('click', (e)=>{
                 secondValueBoolean = true;
             }
             break;
-        case '+/-':
-            showInput.textContent = 'WIP';
-            break;
         case '=':
             let result = operate(operation, a,b);
             showInput.textContent = result;

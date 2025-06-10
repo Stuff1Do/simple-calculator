@@ -21,6 +21,44 @@ const dotButton  = document.querySelector('.dot');
 const negateButton = document.querySelector('.negate');
 const equalButton = document.querySelector('equals');
 const buttonContainer = document.querySelector('.input-container');
+const buttons = document.querySelectorAll('button');
+
+
+document.addEventListener('keydown', handleKeys);
+
+function handleKeys(e){
+    const keyMap = {
+        '/': '/',
+        '*': '*',
+        '-': '-',
+        '+': '+',
+        'Enter': '=', 
+        '=': '=',
+        'Backspace': 'DEL',
+        'Delete': 'AC',
+        '.': '.',
+        '0': '0',
+        '1': '1',
+        '2': '2',
+        '3': '3',
+        '4': '4',
+        '5': '5',
+        '6': '6',
+        '7': '7',
+        '8': '8',
+        '9': '9'
+    };
+
+    let value = keyMap[e.key];
+    if(!value) return;
+
+    const button = document.querySelector(`[data-value="${value}"]`)
+    if(button) {
+        button.click();
+    }
+
+}
+
 
 function add(a,b){
     return a + b;
@@ -292,7 +330,9 @@ buttonContainer.addEventListener('click', (e)=>{
             ctr = 0;
             break;
         case 'DEL':
-            showInput.textContent = 'WIP'
+            let value = showInput.textContent;
+            let sliced = value.slice(0, value.length-1);
+            showInput.textContent = sliced;
             break;
         case '/':
             if(numberInputted){

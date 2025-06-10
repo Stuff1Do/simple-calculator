@@ -42,7 +42,7 @@ body{
     flex-wrap: wrap;
     gap: 10px;
     padding: 12px;
-    background-color: #191d1b;
+    background-color: #191d1b !important;
     border-bottom-left-radius: 14px;
     border-bottom-right-radius: 14px;
 }

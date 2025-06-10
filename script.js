@@ -1,28 +1,5 @@
 const showInput = document.querySelector('.main-output');
-const showPreview = document.querySelector('.result-preview');
-const zero = document.querySelector('.zero');
-const one  = document.querySelector('.one');
-const two  = document.querySelector('.two');
-const three  = document.querySelector('.three');
-const four  = document.querySelector('.four');
-const five = document.querySelector('.five');
-const six  = document.querySelector('.six');
-const seven = document.querySelector('.seven');
-const eight  = document.querySelector('.eight');
-const nine = document.querySelector('.nine');
-const divideButton = document.querySelector('.divide');
-const multiplyButton = document.querySelector('.multiply');
-const subtractButton = document.querySelector('.subtract');
-const addButton = document.querySelector('.addition');
-const percentButton = document.querySelector('.percent');
-const clearButton = document.querySelector('.clear');
-const deleteButton = document.querySelector('.delete');
-const dotButton  = document.querySelector('.dot');
-const negateButton = document.querySelector('.negate');
-const equalButton = document.querySelector('.equals');
 const buttonContainer = document.querySelector('.input-container');
-const buttons = document.querySelectorAll('button');
-
 
 document.addEventListener('keydown', handleKeys);
 
@@ -127,7 +104,18 @@ function calculatePEMDAS(operators, operands){
     
 }   
 
+function sendToDisplay(str){
+    if(showInput.textContent.length < 18){
+        showInput.textContent = str;
+    }
+    
+}
 
+function addToDisplay(str){
+    if(showInput.textContent.length < 18){
+        showInput.textContent += str;
+    }
+}
 buttonContainer.addEventListener('click', (e)=>{
     if(e.target.tagName != 'BUTTON') return;
     const value = e.target.getAttribute('data-value');
@@ -137,22 +125,22 @@ buttonContainer.addEventListener('click', (e)=>{
             numberInputted = true;
             operationInputted =false;
             if(justCalculated){
-                showInput.textContent = '0';
+                sendToDisplay('0')
                 result = null;
                 justCalculated = false;
             }else {
-                showInput.textContent += '0';
+                addToDisplay('0');
             }      
             break;
         case '1':
             numberInputted = true;
             operationInputted =false;
             if(justCalculated){
-                showInput.textContent = '1';
+                sendToDisplay('1');
                 result = null;
                 justCalculated = false;
             }else {
-                showInput.textContent += '1';
+                addToDisplay('1');
             }
             
             
@@ -161,11 +149,11 @@ buttonContainer.addEventListener('click', (e)=>{
             numberInputted = true;
             operationInputted =false;
             if(justCalculated){
-                showInput.textContent = '2';
+                sendToDisplay('2');
                 result = null;
                 justCalculated = false;
             }else {
-                showInput.textContent += '2';
+                addToDisplay('2');
             }
             
             
@@ -174,11 +162,11 @@ buttonContainer.addEventListener('click', (e)=>{
             numberInputted = true;
             operationInputted =false;
             if(justCalculated){
-                showInput.textContent = '3';
+                sendToDisplay('3');
                 result = null;
                 justCalculated = false;
             }else {
-                showInput.textContent += '3';
+                addToDisplay('3');
             }
             
             break;
@@ -186,11 +174,11 @@ buttonContainer.addEventListener('click', (e)=>{
             numberInputted = true;
             operationInputted =false;
             if(justCalculated){
-                showInput.textContent = '4';
+                sendToDisplay('4');
                 result = null;
                 justCalculated = false;
             }else {
-                showInput.textContent += '4';
+                addToDisplay('4');
             }
             
             break;
@@ -198,11 +186,11 @@ buttonContainer.addEventListener('click', (e)=>{
             numberInputted = true;
             operationInputted =false;
             if(justCalculated){
-                showInput.textContent = '5';
+                sendToDisplay('5');
                 result = null;
                 justCalculated = false;
             }else {
-                showInput.textContent += '5';
+                addToDisplay('5');
             }
            
             break;
@@ -210,11 +198,11 @@ buttonContainer.addEventListener('click', (e)=>{
             numberInputted = true;
             operationInputted =false;
             if(justCalculated){
-                showInput.textContent = '6';
+                addToDisplay('6');
                 result = null;
                 justCalculated = false;
             }else {
-                showInput.textContent += '6';
+                addToDisplay('6');
             }
             
             break;
@@ -222,11 +210,11 @@ buttonContainer.addEventListener('click', (e)=>{
             numberInputted = true;
             operationInputted =false;
             if(justCalculated){
-                showInput.textContent = '7';
+                addToDisplay('7');
                 result = null;
                 justCalculated = false;
             }else {
-                showInput.textContent += '7';
+                addToDisplay('7');
             }
             
             break;
@@ -234,11 +222,11 @@ buttonContainer.addEventListener('click', (e)=>{
             numberInputted = true;
             operationInputted =false;
             if(justCalculated){
-                showInput.textContent = '8';
+                addToDisplay('8');
                 result = null;
                 justCalculated = false;
             }else {
-                showInput.textContent += '8';
+                addToDisplay('8');
             }
             
             break;
@@ -246,11 +234,11 @@ buttonContainer.addEventListener('click', (e)=>{
             numberInputted = true;
             operationInputted =false;
             if(justCalculated){
-                showInput.textContent = '9';
+                addToDisplay('9');
                 result = null;
                 justCalculated = false;
             }else {
-                showInput.textContent += '9';
+                addToDisplay('9');
             }
             
             break;
@@ -266,15 +254,10 @@ buttonContainer.addEventListener('click', (e)=>{
             break;
         case 'AC':
             showInput.textContent = '';
-            showPreview.textContent = '';
-            a = null;
-            b = null;
-            operation = null;
-            secondValueBoolean = false;
             justCalculated = false;
             numberInputted = false;
-            
-            
+            operationInputted=false;
+
             break;
         case 'DEL':   
             let text = showInput.textContent;
@@ -329,8 +312,7 @@ buttonContainer.addEventListener('click', (e)=>{
             }
             break;
         case '=':
-            
-        
+              
             let value  = showInput.textContent;
             let operands = value.split(/[+\-÷x]/g);
             let operators = value.match(/[+\-÷x]/g) || [];
@@ -339,8 +321,21 @@ buttonContainer.addEventListener('click', (e)=>{
                 return;
             }
             result = calculatePEMDAS(operators, operands); 
-            showInput.textContent = result;
-            showPreview.textContent = '';
+            let string = result.toString();
+            if(string.length > 13){
+                let show;
+                if(result % 1 != 0){
+                    show = result.toFixed(4);
+                }else{
+                    show = result.toExponential(3);
+                }
+                sendToDisplay(show);
+            }else{
+                sendToDisplay(result);
+            }   
+            
+            
+            
             justCalculated = true;
             numberInputted = false;
             operationInputted=false;

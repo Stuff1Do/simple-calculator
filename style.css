@@ -26,9 +26,14 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    width: 292px;
     height: 90px;
     align-items: flex-end;
     font-size: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  
     
 }
 
@@ -42,7 +47,7 @@ body{
     flex-wrap: wrap;
     gap: 10px;
     padding: 12px;
-    background-color: #191d1b !important;
+    background-color: #191d1b;
     border-bottom-left-radius: 14px;
     border-bottom-right-radius: 14px;
 }
